@@ -1,0 +1,891 @@
+<!--
+                                                                                                           tttt
+                                                                                                        ttt:::t
+                                                                                                        t:::::t
+                                                                                                        t:::::t
+   ooooooooooo            cccccccccccccccc  aaaaaaaaaaaaa   nnnn  nnnnnnnn        eeeeeeeeeeee    ttttttt:::::ttttttt      aaaaaaaaaaaaa
+ oo:::::::::::oo        cc:::::::::::::::c  a::::::::::::a  n:::nn::::::::nn    ee::::::::::::ee  t:::::::::::::::::t      a::::::::::::a
+o:::::::::::::::o      c:::::::::::::::::c  aaaaaaaaa:::::a n::::::::::::::nn  e::::::eeeee:::::eet:::::::::::::::::t      aaaaaaaaa:::::a
+o:::::ooooo:::::o     c:::::::cccccc:::::c           a::::a nn:::::::::::::::ne::::::e     e:::::etttttt:::::::tttttt               a::::a
+o::::o     o::::o     c::::::c     ccccccc    aaaaaaa:::::a   n:::::nnnn:::::ne:::::::eeeee::::::e      t:::::t              aaaaaaa:::::a
+o::::o     o::::o     c:::::c               aa::::::::::::a   n::::n    n::::ne:::::::::::::::::e       t:::::t            aa::::::::::::a
+o::::o     o::::o     c:::::c              a::::aaaa::::::a   n::::n    n::::ne::::::eeeeeeeeeee        t:::::t           a::::aaaa::::::a
+o::::o     o::::o     c::::::c     ccccccca::::a    a:::::a   n::::n    n::::ne:::::::e                 t:::::t    tttttta::::a    a:::::a
+o:::::ooooo:::::o     c:::::::cccccc:::::ca::::a    a:::::a   n::::n    n::::ne::::::::e                t::::::tttt:::::ta::::a    a:::::a
+o:::::::::::::::o      c:::::::::::::::::ca:::::aaaa::::::a   n::::n    n::::n e::::::::eeeeeeee        tt::::::::::::::ta:::::aaaa::::::a
+ oo:::::::::::oo        cc:::::::::::::::c a::::::::::aa:::a  n::::n    n::::n  ee:::::::::::::e          tt:::::::::::tt a::::::::::aa:::a
+   ooooooooooo            cccccccccccccccc  aaaaaaaaaa  aaaa  nnnnnn    nnnnnn    eeeeeeeeeeeeee            ttttttttttt    aaaaaaaaaa  aaaa
+-->
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Buscar Dados na Planilha</title>
+  <style>
+    @import url("https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200");
+    *{
+  		background-color: #0E2D63;
+  	}
+    body { 
+    	font-family: sans-serif; 
+    }
+    span {
+      font-weight: bold;
+      background-color: #e7e7e7;
+    }
+    h1, h2, h5{
+    	color: snow;
+    }
+    h3, li, p, ol, ul{
+      background-color: #e7e7e7;
+    }
+    label { 
+    	display: block; 
+    	margin-bottom: 5px; 
+    	font-weight: bold;
+    	color: snow;
+    }
+    input[type="text"], select { 
+    	width: 200px; 
+    	padding: 8px; 
+    	margin-bottom: 10px; 
+    	border: 1px solid #ccc; 
+    	box-sizing: border-box; 
+    }
+    button { 
+    	padding: 10px 15px;
+    	color: white; 
+    	border: none; 
+    	cursor: pointer;   	
+			border: solid 3px #7ba7f3;
+			border-radius: 10px;
+  		display: inline-block;  				
+			background-color: transparent;
+			color: #3a4856;
+			width: auto;
+			height: 40px;
+			text-align: center;
+			font-size: 15px;
+			font-weight: bold;
+			transition: all .5s;
+    }
+		button:hover{					
+			background-color: #7ba7f3;
+			color: snow;
+			transition: all .5s;
+		}
+		select{
+			border-top: none;
+			border-left: none;
+			border-right: none;
+			border-bottom: solid 2px snow;
+			color: snow;
+      width: auto;
+		}
+    option{
+      text-align: center;
+    }
+    .div-primaria{
+			width: 100%;
+			height: auto ;
+			text-align: center;
+    	justify-items: center;
+      text-align: -webkit-center;
+      padding-bottom: 150px;
+    }
+    .coluna1, .coluna2{
+    	display: inline-block;
+    	padding: 5px;
+    	padding-bottom: 10px;
+    }
+    footer{
+    	color: snow;
+    	justify-self: center;
+    }
+    a{
+    	color: snow;
+    }
+    .resultados {      
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .aviso {    
+      color: darkred;
+    }
+    .icone-aviso:after {
+      font-family: "Material Symbols Rounded";
+      font-variation-settings:
+        'FILL' 1,
+        'wght' 400,
+        'GRAD' 0,
+        'opsz' 24;
+      color: #d30e0e;
+      font-size: 20px;
+      content: 'warning';
+    }
+    .resultado {      
+    	margin-top: 20px; 
+    	border: 1px solid #eee; 
+    	background-color: #e7e7e7; 
+    	border-radius: 5px;
+    	text-align: left;
+    	width: 570px;
+    	display: flex;
+      flex-flow: column;
+    	padding: 10px;
+    	padding-bottom: 10px;  
+      margin: 10px;
+    }
+    .oritentacao {     
+    	margin-top: 20px; 
+    	border: 1px solid #eee; 
+    	background-color: #e7e7e7; 
+    	border-radius: 5px;
+    	text-align: left;
+    	width: 570px;
+    	display: none;
+      flex-flow: column;
+    	padding: 10px;
+    	padding-bottom: 10px;  
+      margin: 10px;
+    }
+    .link_intrucoes {
+      font-weight: bold;
+      background-color: #e7e7e7;
+      color: #1042d7;
+    }
+    .link_intrucoes:before {
+      font-family: "Material Symbols Rounded";
+      font-variation-settings:
+        'FILL' 1,
+        'wght' 400,
+        'GRAD' 0,
+        'opsz' 24;
+      font-size: 20px;
+      content: 'link';
+      position: relative;
+      top: 5px;
+    }
+    .logo  {
+      filter: invert(100%);
+      width: auto;
+      height: 40px;
+      background: transparent;
+    }
+    .logo-alma  {
+      width: auto;
+      height: 45px;
+      float: left;
+      grid-area: logo;
+    }
+    .texto-topo  {
+      text-align: center;
+      background: transparent;
+      grid-area: texto;
+      margin-top: -30px;
+    }
+    .rodape  {
+      display: flex;
+      text-align: center;
+      justify-content: center;
+      align-items: center;
+    }
+    .text-rodape  {
+      text-align: center;
+      color: snow;
+      font-weight: bold;
+      background: transparent;
+    }
+    .div-topo  {
+      display: grid;
+      width: 100%;
+      align-items: center;
+      grid-template-areas: 
+      'logo . . . .'
+      'texto texto texto texto texto';
+    }
+  </style>
+</head>
+<body>
+	<div class="div-primaria">
+    <div class="div-topo">
+      <img class="logo-alma" src="https://www.almavivasolutions.com.br/assets/img/logo-branco.png">
+      <h1 class="texto-topo">Buscador de TSS</h1>
+    </div>
+
+	  <div class="coluna1">
+	  	<label for="spreadsheetId">Planilha da Unidade:</label>
+	  	<select id="spreadsheetId" onchange="carregarAbasDaPlanilha(this.value)">
+        <option value="">--Selecione uma Opção--</option>
+        <option value="id_planilha">OJMI</option>
+        <option value="id_planilha">OJMH</option>
+        <option value="id_planilha">OJMC</option>
+      </select>
+		</div>
+	  
+	  <div class="coluna1">
+	  	<label for="aba">Selecionar Município:</label>
+	  	<select id="aba" onchange="buscarColunaFrontend()">
+        <option value="">! Selecione uma Planilha !</option>
+      </select>
+		</div><br>
+    
+		<div class="coluna2">
+	  	<label>TSS</label>
+	  	<select id="dropdownPesquisa" onchange="buscarLinhaFrontend()">
+        <option value="">! Selecione uma Cidade !</option>
+      </select><br>
+
+		</div><br>
+	  
+    <div class="resultados">
+      <div class="resultado" id="resultado"></div>
+      <div class="oritentacao" id="orientacao"></div>
+    </div>
+	  <h5>Em desenvolvimento | Beta V0.10</h5>
+	</div>
+
+	<footer class="rodape"><div><span class="text-rodape">Desenvolvido por </span></div><div><a href="https://caneta.dev.br" style="text-decoration: none;"><img class="logo" src="https://caneta.dev.br/imagens/newlogo.svg"></a></div></footer>
+
+  <script>    
+    /**
+     * Busca as abas da planilha selecionada
+    */
+    function popularAbas(abas) {
+      const selectAba = document.getElementById('aba');
+      selectAba.innerHTML = ''; // Limpa as opções existentes
+      selectAba.innerHTML = '<option value="">-- Selecione uma Unidade --</option>';
+      abas.forEach(aba => {
+        if(!aba.toLowerCase().includes("saltinho mot") && aba.toLowerCase().includes("mot") || aba.toLowerCase().includes("mop") || aba.toLowerCase().includes("ojs") || aba.toLowerCase().includes("ojmc") || aba.toLowerCase().includes("ojmc") || aba.toLowerCase().includes("ojmh")){
+          const option = document.createElement('option');        
+          option.value = aba;
+          option.textContent = aba;
+          selectAba.appendChild(option);
+        }else{
+          console.log(`Opção "${aba}" expurgada.`);
+        }
+      });
+    }
+    function buscarAbas() {
+      const spreadsheetId = document.getElementById('spreadsheetId').value;
+      if (spreadsheetId) {
+        google.script.run
+          .withSuccessHandler(popularAbas)
+          .withFailureHandler(mostrarErro)
+          .getNomesAbas(spreadsheetId);
+      }
+    }
+    /**
+     * Busca as informações na linha da TSS/Ordem selecionada
+     */
+    function buscarLinhaFrontend() {      
+      const orientacaoDiv = document.getElementById('orientacao');
+      orientacaoDiv.style.display = 'none';
+      const spreadsheetId = document.getElementById('spreadsheetId').value;
+      const abaSelecionada = document.getElementById('aba').value;
+      const nomeCabecalhoColuna = "tss";
+      const valorBusca = document.getElementById('dropdownPesquisa').value;
+      const valorParaDetectarCabecalho = "TSS"; // Exemplo de valor esperado na linha de cabeçalho
+      if (valorBusca != null) {
+        const resultadoDiv = document.getElementById('resultado');
+        resultadoDiv.innerHTML = 'Buscando Informações...';
+        google.script.run
+          .withSuccessHandler(verificarEspeciais)
+          .withFailureHandler(mostrarErro)
+          .buscarLinha(spreadsheetId, abaSelecionada, nomeCabecalhoColuna, valorBusca, valorParaDetectarCabecalho);
+      }
+    }
+
+    /**
+     * Busca as ordens para mostrar no dropdown
+     */ 
+    function buscarColunaFrontend() {
+      const orientacaoDiv = document.getElementById('orientacao');
+      orientacaoDiv.style.display = 'none';
+      const spreadsheetId = document.getElementById('spreadsheetId').value;
+      const abaSelecionada = document.getElementById('aba').value;
+      const colunaBusca = "B";
+      const resultadoDiv = document.getElementById('resultado');
+      resultadoDiv.innerHTML = 'Buscando lista de TSS...';
+      google.script.run
+        .withSuccessHandler(exibirResultadosColuna)
+        .withFailureHandler(mostrarErro)
+        .buscarColuna(spreadsheetId, abaSelecionada, colunaBusca);
+    }
+
+    /**
+     * Verifica se é OS especial ou não
+    */
+    function verificarEspeciais (resultado) {
+      let exibir_resultados = resultado;
+      let tss = '';
+      if (resultado && resultado.data && resultado.data.length > 0) {
+        resultado.data.forEach((dado, index) => {
+          let nomeColuna = resultado.headers && resultado.headers[index] ? resultado.headers[index] : `Coluna ${String.fromCharCode(65 + index)}`;          
+          nomeColuna = String(nomeColuna).trim();
+          if (nomeColuna.toLowerCase() == "tss"){
+            tss = dado;
+            verificaVazamento(tss, resultado);
+          }                    
+        });
+      } else {
+        resultadoDiv.innerHTML = '<p>Nenhum resultado de linha encontrado.</p>';
+      }
+    }
+
+    /**
+     * Função para identificar vazamentos e arrebentado
+    */
+    function verificaVazamento(tss, resultado){
+      let tss_case = tss.toLowerCase();
+      let tss_uni = tss_case.normalize('NFD').replace(/[\u0300-\u036f]/g, "");
+      console.log("Resultado da TSS_UNI: " + tss_uni);
+      let vazamento = tss_uni.includes("vazamento");
+      let arrebentado = tss_uni.includes("arrebentado");
+      if (vazamento != true && arrebentado != true){
+        pegaEspecialFrontend(tss_uni, resultado);
+      } else if (tss_uni != "pesquisar vazamento"){
+        pegaVazamentoFrontend(tss_uni, resultado);
+      } else {
+        exibirResultadosLinha(resultado);
+      }
+    }
+
+    /**
+     * Exibe as informações na linha da TSS/Ordem selecionada
+     */
+    function exibirResultadosLinha(resultado) {
+      const resultadoDiv = document.getElementById('resultado');
+      resultadoDiv.innerHTML = ''; // Limpa o conteúdo anterior
+      const termoBuscaColuna = "coluna";
+      let tss = '';
+
+      if (resultado && resultado.data && resultado.data.length > 0) {
+        resultadoDiv.innerHTML = '<h3>Dados da TSS Encontrada:</h3><ul>';
+        resultado.data.forEach((dado, index) => {
+          let nomeColuna = resultado.headers && resultado.headers[index] ? resultado.headers[index] : `Coluna ${String.fromCharCode(65 + index)}`;          
+          nomeColuna = String(nomeColuna).trim();
+          // Verifica se o NOME DA COLUNA (nomeColuna) contém o termo de busca
+          if (!nomeColuna.toLowerCase().includes(termoBuscaColuna.toLowerCase()) && nomeColuna.toLowerCase() !== ""  && nomeColuna.toLowerCase() !== "cronograma geral") {
+            // Verifica se é uma ordem especial que necessita de verificação adicional
+            resultadoDiv.innerHTML += `<li><span>${nomeColuna}:</span> ${dado}</li><br>`;
+          } else {
+            console.log(`Coluna "${nomeColuna}" expurgada.`);
+          }
+        });
+        resultadoDiv.innerHTML += '</ul>';
+      } else {
+        resultadoDiv.innerHTML = '<p>Nenhum resultado de linha encontrado.</p>';
+      }
+    }
+
+    /**
+     * Exibe o resultado para ordens de vazamento Geral
+    */
+    function exibirResultadosVazamento(info1, info2, info3, exec, resultado) {
+      const resultadoDiv = document.getElementById('resultado');
+      resultadoDiv.innerHTML = ''; // Limpa o conteúdo anterior
+      const termoBuscaColuna = "coluna";
+      let tss = '';
+
+      if (resultado && resultado.data && resultado.data.length > 0) {
+        resultadoDiv.innerHTML = '<h3>Dados da TSS Encontrada:</h3><ul>';
+        resultado.data.forEach((dado, index) => {
+          let nomeColuna = resultado.headers && resultado.headers[index] ? resultado.headers[index] : `Coluna ${String.fromCharCode(65 + index)}`;          
+          nomeColuna = String(nomeColuna).trim();
+          // Verifica se o NOME DA COLUNA (nomeColuna) contém o termo de busca
+          if (!nomeColuna.toLowerCase().includes(termoBuscaColuna.toLowerCase()) && nomeColuna.toLowerCase() !== ""  && nomeColuna.toLowerCase() !== "cronograma geral" && nomeColuna.toLowerCase() !== "férias ou afastamento" && nomeColuna.toLowerCase() !== "substituto") {
+            if (nomeColuna.toLowerCase() == "operador" && dado.toLowerCase() == "orientações"){            
+              if (info3 == "//"){
+                resultadoDiv.innerHTML += `<li><span>Informar a OS para:</span> <br>&nbsp&nbsp1º escalonamento: ${info1} <br>&nbsp&nbsp2º escalonamento: ${info2} <br>&nbsp&nbspFinal de Semana/Feriado: Plantonista</li><br><li> Após confirmação, programar para ${exec}</li><br> <li><span>Orientações:</span> Programação deve ser realizada até às 17:00, após às 17:00, verificar se possuí histórico, caso possua, manter no sistema, caso não possua, notificar plantonista e manter a OS no sistema a menos que seja solicitado pelo plantonista</li><br>`;
+              } else {
+                resultadoDiv.innerHTML += `<li><span>Informar a OS para:</span> <br>&nbsp&nbsp1º escalonamento: ${info1} <br>&nbsp&nbsp2º escalonamento: ${info2} <br>&nbsp&nbsp3º escalonamento: ${info3} <br>&nbsp&nbspFinal de Semana/Feriado: Plantonista</li><br><li> Após confirmação, programar para ${exec}</li><br> <li><span>Orientações:</span> Programação deve ser realizada até às 17:00, após às 17:00, verificar se possuí histórico, caso possua, manter no sistema, caso não possua, notificar plantonista e manter a OS no sistema a menos que seja solicitado pelo plantonista</li><br>`;
+              }
+            } else {
+              resultadoDiv.innerHTML += `<li><span>${nomeColuna}:</span> ${dado}</li><br>`;
+            }
+          } else {
+            console.log(`Coluna "${nomeColuna}" expurgada.`);
+          }
+        });
+        resultadoDiv.innerHTML += '</ul>';
+      } else {
+        resultadoDiv.innerHTML = '<p>Nenhum resultado de linha encontrado.</p>';
+      }
+    }
+
+    /**
+     * Exibe o resultado para ordens de falta de água
+    */
+    function exibirResultadosFalta(exec, afasferi, subst, resultado) {
+      const resultadoDiv = document.getElementById('resultado');
+      resultadoDiv.innerHTML = ''; // Limpa o conteúdo anterior
+      const termoBuscaColuna = "coluna";
+      let tss = '';
+
+      if (resultado && resultado.data && resultado.data.length > 0) {
+        resultadoDiv.innerHTML = '<h3>Dados da TSS Encontrada:</h3><ul>';
+        resultado.data.forEach((dado, index) => {
+          let nomeColuna = resultado.headers && resultado.headers[index] ? resultado.headers[index] : `Coluna ${String.fromCharCode(65 + index)}`;          
+          nomeColuna = String(nomeColuna).trim();
+          // Verifica se o NOME DA COLUNA (nomeColuna) contém o termo de busca
+          if (!nomeColuna.toLowerCase().includes(termoBuscaColuna.toLowerCase()) && nomeColuna.toLowerCase() !== ""  && nomeColuna.toLowerCase() !== "cronograma geral" && nomeColuna.toLowerCase() !== "férias ou afastamento" && nomeColuna.toLowerCase() !== "substituto") {
+            if (nomeColuna.toLowerCase() == "operador" && dado.toLowerCase() == "orientações"){
+              console.log(`Resultado da variável de férias: ${afasferi.toLowerCase()} antes de ser tratada no if`);      
+              if (afasferi.toLowerCase() == "não") {
+                resultadoDiv.innerHTML += `<li><span>Programar para: </span>${exec}</li> <br> <li><span>Orientações:</span><br>>Entrar no sistema Net@ e verificar nos processos se há algum "Parcelamento, Corte, Suprimir ou Religar<br>>Caso tenha, informar o operador junto da ordem<br>>Caso não tenha, informar somente a ordem</li><br>`;
+              } else {
+                resultadoDiv.innerHTML += `<li><span style="color: red">Operador ${exec} afastado ou de férias</span><br><span>Programar para: </span>${subst}</li> <br> <li><span>Orientações:</span><br>>Entrar no sistema Net@ e verificar nos processos se há algum "Parcelamento, Corte, Suprimir ou Religar<br>>Caso tenha, informar o operador junto da ordem<br>>Caso não tenha, informar somente a ordem</li><br>`;
+              }
+            } else {
+              resultadoDiv.innerHTML += `<li><span>${nomeColuna}:</span> ${dado}</li><br>`;
+            }
+          } else {
+            console.log(`Coluna "${nomeColuna}" expurgada.`);
+          }
+        });
+        resultadoDiv.innerHTML += '</ul>';
+      } else {
+        resultadoDiv.innerHTML = '<p>Nenhum resultado de linha encontrado.</p>';
+      }
+    }
+
+    /**
+     * Exibe o resultado para ordens de Verificar Solicitado
+    */
+    function exibirResultadosSolicitado(exec_agu, exec_esg, afasferi, subst, resultado) {
+      const resultadoDiv = document.getElementById('resultado');
+      const orientacaoDiv = document.getElementById('orientacao');
+      resultadoDiv.innerHTML = ''; // Limpa o conteúdo anterior
+      orientacaoDiv.innerHTML = ''; // Limpa o conteúdo anterior
+      const termoBuscaColuna = "coluna";
+      let tss = '';
+
+      if (resultado && resultado.data && resultado.data.length > 0) {
+        orientacaoDiv.style.display = "flex";
+        resultadoDiv.innerHTML = '<h3>Dados da TSS Encontrada:</h3><ul>';
+        orientacaoDiv.innerHTML = '<h3>Orientações:</h3><ul>';
+        resultado.data.forEach((dado, index) => {
+          let nomeColuna = resultado.headers && resultado.headers[index] ? resultado.headers[index] : `Coluna ${String.fromCharCode(65 + index)}`;          
+          nomeColuna = String(nomeColuna).trim();
+          afasferi = String(afasferi).trim();
+          // Verifica se o NOME DA COLUNA (nomeColuna) contém o termo de busca
+          if (!nomeColuna.toLowerCase().includes(termoBuscaColuna.toLowerCase()) && nomeColuna.toLowerCase() !== ""  && nomeColuna.toLowerCase() !== "cronograma geral" && nomeColuna.toLowerCase() !== "férias ou afastamento" && nomeColuna.toLowerCase() !== "substituto") {
+            if (nomeColuna.toLowerCase() == "operador" && dado.toLowerCase() == "orientações"){
+              console.log(`Resultado da variável de férias: ${afasferi.toLowerCase()} antes de ser tratada no if`);      
+              if (afasferi.toLowerCase().includes("água")) { // MODIFICAR ESTÁ LINHA PARA VERIFICAR QUAL OPERADOR ESTÁ DE FÉRIAS ÁGUA/ESGOTO
+                resultadoDiv.innerHTML += `<li class="aviso icone-aviso"><span class="aviso">Operador de Água: </span>${exec_agu}<span class="aviso"> de férias ou afastado</span><br><span class="aviso">Redirecionar programação para ${subst}</span></li> <br> `;
+                resultadoDiv.innerHTML += `<li><span>Operador de Esgoto: </span>${exec_esg}</li> <br> `;
+              } else if (afasferi.toLowerCase().includes("esgoto")) {
+                resultadoDiv.innerHTML += `<li><span>Operador de Água: </span>${exec_agu}</li> <br> `;  
+                resultadoDiv.innerHTML += `<li class="aviso"><span class="aviso">Operador de Esgoto </span>${exec_esg}<span class="aviso"> de férias ou afastado</span><br><span class="aviso">Redirecionar programação para ${subst}</li> <br> `;
+              } else {
+                resultadoDiv.innerHTML += `<li><span>Operador de Água: </span>${exec_agu}</li> <br> `; 
+                resultadoDiv.innerHTML += `<li><span>Operador de Esgoto: </span>${exec_esg}</li> <br> `;
+              }
+              orientacaoDiv.innerHTML += `
+              <ol>
+                <li>Realizar a leitura das notas de acatamento e procurar por palavras chaves ou assuntos que indicarão o operador a ser programado</li>
+              </ol>
+              <ul>
+                <li>Serviços de Esgoto poderão ter as seguintes notas:</li>
+                <ul>
+                  <li>Vazamentos de Esgoto</li>
+                  <li>Esgoto Retornando</li>
+                  <li>PV</li>
+                  <li>Mau Cheiro</li>
+                  <li>Ligação de Esgoto</li>
+                  <li>Nova Ligação de Esgoto</li>
+                  <li>Verificar obras que resultaram em problema de esgoto</li>
+                </ul><br>
+                <li>Serviços de Água poderão ter as seguintes notas:</li>
+                <ul>
+                  <li>Falta de Água</li>
+                  <li>Vazamento de Água</li>
+                  <li>Pouca ou Muita Pressão</li>
+                  <li>Verificar obras que resultaram em problema de água</li>
+                </ul><br>
+                <li>Serviços Comerciais poderão ter as seguintes notas:</li>
+                <ul>
+                  <li>Hidrômetro</li>
+                  <li>Fatura</li>
+                  <li>Orientações sobre cadastro</li>
+                  <li>Orientações sobre caixa uma</li>
+                </ul>
+              </ul><br>`;  
+            } else if (nomeColuna.toLowerCase() == "orientações") {
+              console.log(`Entrou nas Orientações`);                  
+            } else {
+              resultadoDiv.innerHTML += `<li><span>${nomeColuna}:</span> ${dado}</li><br>`;
+            }
+          } else {
+            console.log(`Coluna "${nomeColuna}" expurgada.`);
+          }
+        });
+        resultadoDiv.innerHTML += '</ul>';
+      } else {
+        resultadoDiv.innerHTML = '<p>Nenhum resultado de linha encontrado.</p>';
+      }
+    }
+
+    /**
+     * Exibe o resultado para ordens de Religar | Restabelecer
+    */
+    function exibirResultadosResReli(exec, /*afasferi, subst,*/ resultado) {
+      const resultadoDiv = document.getElementById('resultado');
+      const orientacaoDiv = document.getElementById('orientacao');
+      resultadoDiv.innerHTML = ''; // Limpa o conteúdo anterior
+      orientacaoDiv.innerHTML = ''; // Limpa o conteúdo anterior
+      const termoBuscaColuna = "coluna";
+      const link_manual = 'LINK';
+      let tss = '';
+
+      if (resultado && resultado.data && resultado.data.length > 0) {
+        orientacaoDiv.style.display = "flex";
+        resultadoDiv.innerHTML = '<h3>Dados da TSS Encontrada:</h3><ul>';
+        orientacaoDiv.innerHTML = '<h3>Orientações:</h3>';
+        resultado.data.forEach((dado, index) => {
+          let nomeColuna = resultado.headers && resultado.headers[index] ? resultado.headers[index] : `Coluna ${String.fromCharCode(65 + index)}`;          
+          nomeColuna = String(nomeColuna).trim();
+          // Verifica se o NOME DA COLUNA (nomeColuna) contém o termo de busca
+          if (!nomeColuna.toLowerCase().includes(termoBuscaColuna.toLowerCase()) && nomeColuna.toLowerCase() !== ""  && nomeColuna.toLowerCase() !== "cronograma geral" && nomeColuna.toLowerCase() !== "férias ou afastamento" && nomeColuna.toLowerCase() !== "substituto") {
+            if (nomeColuna.toLowerCase() == "operador" && dado.toLowerCase() == "orientações"){
+              //console.log(`Resultado da variável de férias: ${afasferi.toLowerCase()} antes de ser tratada no if`);      
+              resultadoDiv.innerHTML += `<li><span>Programar para: </span>${exec}</li> <br> `; 
+              orientacaoDiv.innerHTML += `
+              <ol>
+                <li>Acessar contratos e Abrir fornecimento Ativo</li><br>
+                <li>Analisar débitos na aba documentos dentro do extrato cliente, necessário verificar se há valores vencidos ou Qtde rompidos:</li><br>
+                <ul>
+                  <li>Não Havendo vencidos ou rompidos, ordem pode ser programada</li><br>
+                  <li>Havendo vencidos ou rompidos, verificar em processos se há primeiro pagamento informado. Havendo pagamento informado, ordem pode ser programada</li><br>
+                  <li>Não havendo os dados acima, deixar ordem no sistema</li><br>
+                </ul>
+              </ol><br>
+              <a class="link_intrucoes" href=${link_manual} target="_blank">Instruções por Imagem</a>`;  
+            } else if (nomeColuna.toLowerCase() == "orientações") {
+              console.log(`Entrou nas Orientações`);                  
+            } else {
+              resultadoDiv.innerHTML += `<li><span>${nomeColuna}:</span> ${dado}</li><br>`;
+            }
+          } else {
+            console.log(`Coluna "${nomeColuna}" expurgada.`);
+          }
+        });
+        resultadoDiv.innerHTML += '</ul>';
+      } else {
+        resultadoDiv.innerHTML = '<p>Nenhum resultado de linha encontrado.</p>';
+      }
+    }
+
+    /**
+     * Exibe o resultado de vazamentos para OJMC
+    */
+    function exibirResultadosVazamentoOJMC(exec, resultado, cida) {
+      const resultadoDiv = document.getElementById('resultado');
+      resultadoDiv.innerHTML = ''; // Limpa o conteúdo anterior
+      const termoBuscaColuna = "coluna";
+      let tss = '';
+      if (cida == "vp"){
+        if (resultado && resultado.data && resultado.data.length > 0) {
+          resultadoDiv.innerHTML = '<h3>Dados da TSS Encontrada:</h3><ul>';
+          resultado.data.forEach((dado, index) => {
+            let nomeColuna = resultado.headers && resultado.headers[index] ? resultado.headers[index] : `Coluna ${String.fromCharCode(65 + index)}`;          
+            nomeColuna = String(nomeColuna).trim();
+            // Verifica se o NOME DA COLUNA (nomeColuna) contém o termo de busca
+            if (!nomeColuna.toLowerCase().includes(termoBuscaColuna.toLowerCase()) && nomeColuna.toLowerCase() !== ""  && nomeColuna.toLowerCase() !== "cronograma geral" && nomeColuna.toLowerCase() !== "férias ou afastamento" && nomeColuna.toLowerCase() !== "substituto") {
+              if (nomeColuna.toLowerCase() == "operador" && dado.toLowerCase() == "orientações"){     
+                resultadoDiv.innerHTML += `<li><span>Programar para:</span> ${exec} <br> Finais de Semana e Feriados: Programar <span>TODOS</span> os vazamentos para o plantonista</li><br> <li><span>Orientações:</span> Programação deve ser realizada até às 17:00, após às 17:00, verificar se possui histórico, caso possua, manter no sistema, caso não possua, notificar plantonista e manter a OS no sistema a menos que seja solicitado pelo plantonista</li><br>`;
+              } else {
+                resultadoDiv.innerHTML += `<li><span>${nomeColuna}:</span> ${dado}</li><br>`;
+              }
+            } else {
+              console.log(`Coluna "${nomeColuna}" expurgada.`);
+            }
+          });
+          resultadoDiv.innerHTML += '</ul>';
+        } else {
+          resultadoDiv.innerHTML = '<p>Nenhum resultado de linha encontrado.</p>';
+        }
+      } else {
+        if (resultado && resultado.data && resultado.data.length > 0) {
+          resultadoDiv.innerHTML = '<h3>Dados da TSS Encontrada:</h3><ul>';
+          resultado.data.forEach((dado, index) => {
+            let nomeColuna = resultado.headers && resultado.headers[index] ? resultado.headers[index] : `Coluna ${String.fromCharCode(65 + index)}`;          
+            nomeColuna = String(nomeColuna).trim();
+            // Verifica se o NOME DA COLUNA (nomeColuna) contém o termo de busca
+            if (!nomeColuna.toLowerCase().includes(termoBuscaColuna.toLowerCase()) && nomeColuna.toLowerCase() !== ""  && nomeColuna.toLowerCase() !== "cronograma geral" && nomeColuna.toLowerCase() !== "férias ou afastamento" && nomeColuna.toLowerCase() !== "substituto") {
+              if (nomeColuna.toLowerCase() == "operador" && dado.toLowerCase() == "orientações"){     
+                resultadoDiv.innerHTML += `<li><span>Não Programar | Notificar o plantonista apenas após às 17:00</span></li><br>`;
+              } else {
+                resultadoDiv.innerHTML += `<li><span>${nomeColuna}:</span> ${dado}</li><br>`;
+              }
+            } else {
+              console.log(`Coluna "${nomeColuna}" expurgada.`);
+            }
+          });
+          resultadoDiv.innerHTML += '</ul>';
+        } else {
+          resultadoDiv.innerHTML = '<p>Nenhum resultado de linha encontrado.</p>';
+        }
+      }
+    }
+
+    /**
+     * Exibe lista de TSS/Ordens no dropdown
+    */
+    function exibirResultadosColuna(dadosColuna) {
+      const resultadoDrop = document.getElementById('dropdownPesquisa');
+      const resultadoDiv = document.getElementById('resultado');
+      resultadoDiv.innerHTML = ''; // Limpa qualquer conteúdo anterior
+      resultadoDrop.innerHTML = '';
+
+      if (dadosColuna && dadosColuna.length > 0) {
+        const selectElement = resultadoDrop;
+        selectElement.id = 'dropdownPesquisa'; // Dê um ID ao dropdown se precisar referenciá-lo depois
+        selectElement.innerHTML = '<option value="">-- Selecione um valor --</option>'; // Adiciona uma opção padrão
+
+        dadosColuna.forEach(dado => {
+          dado = String(dado).trim();
+          if(dado.toLowerCase() !== "sim" && dado.toLowerCase() !== "não" && dado.toLowerCase() !== "tss" && dado !== ""){
+            const optionElement = document.createElement('option');
+            optionElement.value = dado; // O valor que será enviado se selecionado
+            optionElement.textContent = dado; // O texto que o usuário verá
+            selectElement.appendChild(optionElement);
+          }else{
+            console.log(`Linha "${dado}" expurgada.`);
+          }
+        });
+
+        resultadoDiv.innerHTML = '<p>Pesquisa Concluida. <br>Pode Pesquisar a TSS Desejada</p>';
+      } else {
+        resultadoDiv.innerHTML = '<p>Nenhum dado encontrado na coluna para exibir no dropdown.</p>';
+      }
+    }
+
+    /**
+     * Função para carregar as informações de uma planilha de acordo com a coluna selecionada
+    */
+    function carregarAbasDaPlanilha(spreadsheetId) {
+      if (spreadsheetId) {
+        // Chama a função para buscar e popular as abas para a planilha selecionada
+        google.script.run
+          .withSuccessHandler(popularAbas)
+          .withFailureHandler(mostrarErro)
+          .getNomesAbas(spreadsheetId);
+
+        // Opcional: Se você também quiser carregar os nomes das colunas da primeira aba da nova planilha
+        const abaSelect = document.getElementById('aba');
+        if (abaSelect && abaSelect.options.length > 0) {
+          carregarNomesColunas(abaSelect.options[0].value);
+        } else {
+          //Limpar o dropdown de colunas se não houver abas
+          const colunaSelect = document.getElementById('coluna');
+          colunaSelect.innerHTML = '<option value="">-- Selecione uma coluna --</option>';
+        }
+
+        // Atualiza o valor do input hidden ou variável global que armazena o ID da planilha atual
+        document.getElementById('spreadsheetId').value = spreadsheetId;
+      } else {
+        // Lógica para lidar com a situação em que nenhum ID de planilha está selecionado
+        const abaSelect = document.getElementById('aba');
+        abaSelect.innerHTML = '<option value="">-- Selecione uma aba --</option>';
+        const colunaSelect = document.getElementById('coluna');
+        colunaSelect.innerHTML = '<option value="">-- Selecione uma coluna --</option>';
+      }
+    }
+
+    /**
+     * Função para detectar aba especial
+    */
+    function pegaAbasEspeciais(){
+      const spreadsheetId = document.getElementById('spreadsheetId').value;
+      const abaSelecionada = document.getElementById('aba').value;
+      // OJMI
+      if (spreadsheetId == "id_planilha"){
+        let cidade = abaSelecionada.toLowerCase();
+        if (cidade.includes("itatiba")){
+          cidade = "itatiba";
+          return cidade;
+        } else if (cidade.includes("itupeva")){
+          cidade = "itupeva";
+          return cidade;
+        } else if (cidade.includes("cabreúva")){
+          cidade = "cabreuva";
+          return cidade;
+        } else if (cidade.includes("morungaba")){
+          cidade = "morungaba";
+          return cidade;
+        } else if (cidade.includes("jarinu")){
+          cidade = "jarinu";
+          return cidade;
+        } else {
+          console.log("Houve um erro e não foi identificado nenhuma cidade da OJMI");
+        }
+      // OJMC
+      } else if (spreadsheetId == "id_planilha") {
+        console.log("Divisão de Campo Limpo Paulista");
+        let cidade = abaSelecionada.toLowerCase();
+        if (cidade.includes("campo limpo")){
+          cidade = "clp";
+          return cidade;
+        } else if (cidade.includes("várzea paulista")){
+          cidade = "vp";
+          return cidade;
+        } else {
+          console.log("Houve um erro e não foi identificado nenhuma cidade da OJMC");          
+        }
+      // OJMH
+      } else if (spreadsheetId == "id_planilha") {
+        console.log("Divisão de Hortolândia");
+        let cidade = abaSelecionada.toLowerCase();
+        if(cidade.includes("hortolândia") || cidade.includes("hortolandia")){
+          cidade = "hortolândia";
+          return cidade;
+        } else if (cidade.includes("paulínia") || cidade.includes("paulinia") ) {
+          cidade = "paulínia";
+          return cidade;
+        } else if (cidade.includes("monte mor")) {
+          cidade = "monte mor";
+          return cidade;          
+        } else if (cidade.includes("elias fausto")) {
+          cidade = "elias fausto";
+          return cidade;          
+        } else if (cidade.includes("saltinho")) {
+          cidade = "saltinho";
+          return cidade;          
+        } else if (cidade.includes("mombuca")) {
+          cidade = "mombuca";
+          return cidade;          
+        } else {          
+          console.log("Houve um erro e não foi identificado nenhuma cidade da OJMH");
+        }
+      }
+    }
+
+    /**
+     * Função para detectar TSS Especial
+     * 
+     * Em desenvolvimento
+    */
+    function pegaEspecialFrontend(tss, resultado) {
+      //exibirResultadosLinha(resultado);      
+      const abaSelecionada = document.getElementById('aba').value;
+      let cidade = abaSelecionada.trim().toLowerCase();
+      tss = tss.trim();
+      if (cidade.includes("itatiba")){
+        switch (tss.toLowerCase()){
+          case "falta de agua geral":
+            pegaFaltaFrontend(tss, resultado);
+            break;
+          case "falta de agua local":
+            pegaFaltaFrontend(tss, resultado);
+            break;
+          case "religar agua deb op":
+            pegaEspeciaisParaBackend(tss, resultado);
+            break;
+          case "restabelecer ligacao op":
+            pegaEspeciaisParaBackend(tss, resultado);
+            break;
+          case "religar agua impedimento de leitura":
+            pegaEspeciaisParaBackend(tss, resultado);
+            break;
+          case "verificar servico solicitado":
+            pegaEspeciaisParaBackend(tss, resultado);
+            break;
+          case "verificar servico executado":
+            pegaEspeciaisParaBackend(tss, resultado);
+            break;
+          case "vistoria de identificar responsabilidade":
+            pegaEspeciaisParaBackend(tss, resultado);
+            break;
+          default:
+            console.log("ordem comum");
+            exibirResultadosLinha(resultado);
+        }
+      } else {
+        switch (tss.toLowerCase()){
+          case "falta de agua geral":
+            pegaFaltaFrontend(tss, resultado);
+            break;
+          case "falta de agua local":
+            pegaFaltaFrontend(tss, resultado);
+            break;
+          default:
+            console.log("ordem comum");
+            exibirResultadosLinha(resultado);
+        }        
+      }
+    }
+
+    /**
+     * Pega Especial de Vazamento
+    */
+    function pegaVazamentoFrontend(tss, resultado) { 
+      const spreadsheetId = document.getElementById('spreadsheetId').value;
+      const abaSelecionada = pegaAbasEspeciais();
+      google.script.run
+        .withSuccessHandler(mostraResultado)
+        .withFailureHandler(mostrarErro)
+        .osEspeciaisVazamento(spreadsheetId, abaSelecionada, tss, resultado);
+    }
+
+    /**
+     * Pega Falta de água Local/Geral
+    */
+    function pegaFaltaFrontend(tss, resultado) { 
+      const spreadsheetId = document.getElementById('spreadsheetId').value;
+      const abaSelecionada = pegaAbasEspeciais();
+      google.script.run
+        .withSuccessHandler(mostraResultado)
+        .withFailureHandler(mostrarErro)
+        .osFaltaAgua(spreadsheetId, abaSelecionada, tss, resultado);
+    }
+
+    /**
+     * Pega Ordens Especial
+    */
+    function pegaEspeciaisParaBackend(tss, resultado) { 
+      const spreadsheetId = document.getElementById('spreadsheetId').value;
+      const abaSelecionada = pegaAbasEspeciais();
+      google.script.run
+        .withSuccessHandler(mostraResultado)
+        .withFailureHandler(mostrarErro)
+        .osEspeciaisGeral(spreadsheetId, abaSelecionada, tss, resultado);
+    }
+
+    /**
+     * Chama a função que mostra os dados do back-end vazamentos para o front-end
+    */
+    function mostraResultado (dadosBackend){
+      if(dadosBackend.tss == "vazamento"){
+        if (dadosBackend.cida == "vp" || dadosBackend.cida == "clp"){
+          exibirResultadosVazamentoOJMC(dadosBackend.exec, dadosBackend.resultado, dadosBackend.cida);
+        } else {
+          exibirResultadosVazamento(dadosBackend.info1, dadosBackend.info2, dadosBackend.info3, dadosBackend.exec, dadosBackend.resultado);
+        }
+      } else if (dadosBackend.tss == "falta") {
+        exibirResultadosFalta(dadosBackend.exec, dadosBackend.afasferi, dadosBackend.subst, dadosBackend.resultado);
+      } else if (dadosBackend.tss == "solicitado") {
+        //      exibirResultadosSolicitado
+        exibirResultadosSolicitado(dadosBackend.exec_agu, dadosBackend.exec_esg, dadosBackend.afasferi, dadosBackend.subst, dadosBackend.resultado);
+      } else if (dadosBackend.tss == "religar") {
+        //      exibirResultadosReligar
+        exibirResultadosResReli(dadosBackend.exec, dadosBackend.resultado);
+      } else {
+        console.log("OS não se encaixa em nenhuma das ordens anteriores | Erro ao identificar procedência");
+      }
+    }    
+
+    /**
+     * Função para mostrar o Erro
+    */
+    function mostrarErro(erro) {
+      const resultadoDiv = document.getElementById('resultado');
+      resultadoDiv.innerHTML = `<p style="color: red;">Erro: ${erro}</p>`;
+      console.error(erro);
+    }
+  </script>
+</body>
+</html>
