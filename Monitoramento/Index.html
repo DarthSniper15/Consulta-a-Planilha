@@ -1,0 +1,602 @@
+<!--
+                                                                                                           tttt
+                                                                                                        ttt:::t
+                                                                                                        t:::::t
+                                                                                                        t:::::t
+   ooooooooooo            cccccccccccccccc  aaaaaaaaaaaaa   nnnn  nnnnnnnn        eeeeeeeeeeee    ttttttt:::::ttttttt      aaaaaaaaaaaaa
+ oo:::::::::::oo        cc:::::::::::::::c  a::::::::::::a  n:::nn::::::::nn    ee::::::::::::ee  t:::::::::::::::::t      a::::::::::::a
+o:::::::::::::::o      c:::::::::::::::::c  aaaaaaaaa:::::a n::::::::::::::nn  e::::::eeeee:::::eet:::::::::::::::::t      aaaaaaaaa:::::a
+o:::::ooooo:::::o     c:::::::cccccc:::::c           a::::a nn:::::::::::::::ne::::::e     e:::::etttttt:::::::tttttt               a::::a
+o::::o     o::::o     c::::::c     ccccccc    aaaaaaa:::::a   n:::::nnnn:::::ne:::::::eeeee::::::e      t:::::t              aaaaaaa:::::a
+o::::o     o::::o     c:::::c               aa::::::::::::a   n::::n    n::::ne:::::::::::::::::e       t:::::t            aa::::::::::::a
+o::::o     o::::o     c:::::c              a::::aaaa::::::a   n::::n    n::::ne::::::eeeeeeeeeee        t:::::t           a::::aaaa::::::a
+o::::o     o::::o     c::::::c     ccccccca::::a    a:::::a   n::::n    n::::ne:::::::e                 t:::::t    tttttta::::a    a:::::a
+o:::::ooooo:::::o     c:::::::cccccc:::::ca::::a    a:::::a   n::::n    n::::ne::::::::e                t::::::tttt:::::ta::::a    a:::::a
+o:::::::::::::::o      c:::::::::::::::::ca:::::aaaa::::::a   n::::n    n::::n e::::::::eeeeeeee        tt::::::::::::::ta:::::aaaa::::::a
+ oo:::::::::::oo        cc:::::::::::::::c a::::::::::aa:::a  n::::n    n::::n  ee:::::::::::::e          tt:::::::::::tt a::::::::::aa:::a
+   ooooooooooo            cccccccccccccccc  aaaaaaaaaa  aaaa  nnnnnn    nnnnnn    eeeeeeeeeeeeee            ttttttttttt    aaaaaaaaaa  aaaa
+-->
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Buscar Dados na Planilha</title>
+  <style>
+    @import url("https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200");
+    *{
+  		background-color: #0E2D63;
+  	}
+    body { 
+    	font-family: sans-serif; 
+    }
+    span {
+      font-weight: bold;
+      background-color: #e7e7e7;
+      color: black;
+    }
+    h1, h2, h5{
+    	color: snow;
+    }
+    h3, li, p, ol, ul{
+      background-color: #e7e7e7;
+    }
+    label { 
+    	display: block; 
+    	margin-bottom: 5px; 
+    	font-weight: bold;
+    	color: snow;
+    }
+    input[type="text"], select { 
+    	width: 200px; 
+    	padding: 8px; 
+    	margin-bottom: 10px; 
+    	border: 1px solid #ccc; 
+    	box-sizing: border-box; 
+    }
+    button { 
+    	padding: 10px 15px;
+    	color: white; 
+    	border: none; 
+    	cursor: pointer;   	
+			border: solid 3px #7ba7f3;
+			border-radius: 10px;
+  		display: inline-block;  				
+			background-color: transparent;
+			color: #3a4856;
+			width: auto;
+			height: 40px;
+			text-align: center;
+			font-size: 15px;
+			font-weight: bold;
+			transition: all .5s;
+    }
+		button:hover{					
+			background-color: #7ba7f3;
+			color: snow;
+			transition: all .5s;
+		}
+		select{
+			border-top: none;
+			border-left: none;
+			border-right: none;
+			border-bottom: solid 2px snow;
+			color: snow;
+      width: auto;
+		}
+    option{
+      text-align: center;
+    }
+    .resultados{
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .result1{ 
+    	margin-top: 20px; 
+    	border: 1px solid #eee; 
+    	background-color: #e7e7e7; 
+    	border-radius: 5px;
+    	text-align: left;
+    	width: 570px;
+    	display: flex;
+      flex-flow: column;
+    	padding: 10px;
+    	padding-bottom: 10px;  
+      margin: 10px;
+    }
+    .result2, .result3 {
+      display: none;
+    	margin-top: 20px; 
+    	border: 1px solid #eee; 
+    	background-color: #e7e7e7; 
+    	border-radius: 5px;
+    	text-align: left;
+    	width: 570px;
+    	//display: inline-block;
+    	padding: 10px;
+    	padding-bottom: 10px;  
+      margin: 10px;
+      flex-flow: column;
+    }
+    .div-primaria{
+			width: 100%;
+			height: auto ;
+			text-align: center;
+    	justify-items: center;
+      text-align: -webkit-center;
+      padding-bottom: 150px;
+    }
+    .coluna1, .coluna2{
+    	display: inline-block;
+    	padding: 5px;
+    	padding-bottom: 10px;
+    }
+    footer{
+    	color: snow;
+    	justify-self: center;
+    }
+    a{
+    	color: snow;
+    }
+    .aviso {    
+      color: darkred;
+    }
+    .icone-aviso:after {
+      font-family: "Material Symbols Rounded";
+      font-variation-settings:
+        'FILL' 1,
+        'wght' 400,
+        'GRAD' 0,
+        'opsz' 24;
+      color: #d30e0e;
+      font-size: 20px;
+      content: 'warning';
+    }
+    .resultado {      
+    	margin-top: 20px; 
+    	border: 1px solid #eee; 
+    	background-color: #e7e7e7; 
+    	border-radius: 5px;
+    	text-align: left;
+    	width: 570px;
+    	display: flex;
+      flex-flow: column;
+    	padding: 10px;
+    	padding-bottom: 10px;  
+      margin: 10px;
+    }
+    .oritentacao {     
+    	margin-top: 20px; 
+    	border: 1px solid #eee; 
+    	background-color: #e7e7e7; 
+    	border-radius: 5px;
+    	text-align: left;
+    	width: 570px;
+    	display: none;
+      flex-flow: column;
+    	padding: 10px;
+    	padding-bottom: 10px;  
+      margin: 10px;
+    }
+    .link_intrucoes {
+      font-weight: bold;
+      background-color: #e7e7e7;
+      color: #1042d7;
+    }
+    .link_intrucoes:before {
+      font-family: "Material Symbols Rounded";
+      font-variation-settings:
+        'FILL' 1,
+        'wght' 400,
+        'GRAD' 0,
+        'opsz' 24;
+      font-size: 20px;
+      content: 'link';
+      position: relative;
+      top: 5px;
+    }
+    .logo  {
+      filter: invert(100%);
+      width: auto;
+      height: 40px;
+      background: transparent;
+    }
+    .logo-alma  {
+      width: auto;
+      height: 45px;
+      float: left;
+      grid-area: logo;
+    }
+    .texto-topo  {
+      text-align: center;
+      background: transparent;
+      grid-area: texto;
+      margin-top: -30px;
+    }
+    .rodape  {
+      display: flex;
+      text-align: center;
+      justify-content: center;
+      align-items: center;
+    }
+    .text-rodape  {
+      text-align: center;
+      color: snow;
+      font-weight: bold;
+      background: transparent;
+    }
+    .div-topo  {
+      display: grid;
+      width: 100%;
+      align-items: center;
+      grid-template-areas: 
+      'logo . . . .'
+      'texto texto texto texto texto';
+    }
+  </style>
+</head>
+<body>
+	<div class="div-primaria">	
+    <div class="div-topo">
+	    <img class="logo-alma" src="https://www.almavivasolutions.com.br/assets/img/logo-branco.png">
+	    <h1 class="texto-topo">Buscador de Contato</h1>
+	  </div>
+
+	  <div class="coluna1">
+	  	<label for="aba">Selecionar Setor:</label>
+	  	<select id="aba" onchange="buscarColunaFrontend()">
+        <option value="">! Aguarde !</option>
+      </select>
+		</div>
+
+		<div class="coluna1">
+	  	<label>Cidade</label>
+	  	<select id="dropdownPesquisa" onchange="buscarLinhaFrontend()">
+        <option value="">! Selecione o Setor !</option>
+      </select><br>
+
+		</div><br>
+	  
+    <div class="resultados">
+      <div class="result1" id="resultado1"></div>    
+      <div class="result2" id="resultado2"></div>
+      <div class="result3" id="resultado3"></div>
+    </div>
+	  <h5>Em desenvolvimento | Beta V0.1.6</h5>
+	</div>
+
+	<footer class="rodape"><div><span class="text-rodape">Desenvolvido por </span></div><div><a href="https://caneta.dev.br" style="text-decoration: none;"><img class="logo" src="https://caneta.dev.br/imagens/newlogo.svg"></a></div></footer>
+
+  <script>
+    const spreadsheetId = "id_planilha";
+    
+    // Carrega as abas ao carregar a página
+    window.onload = carregarAbasDaPlanilha;
+
+    /**
+     * Busca as abas da planilha selecionada
+    */
+    function popularAbas(abas) {
+      const selectAba = document.getElementById('aba');
+      selectAba.innerHTML = ''; // Limpa as opções existentes
+      selectAba.innerHTML = '<option value="">-- Selecione o Setor --</option>';
+      abas.forEach(aba => {
+        if(!aba.toLowerCase().includes("base") && !aba.toLowerCase().includes("regras gerais")){
+          const option = document.createElement('option');        
+          option.value = aba;
+          option.textContent = aba;
+          selectAba.appendChild(option);
+        }else{
+          console.log(`Opção "${aba}" expurgada.`);
+        }
+      });
+    }
+
+    /**
+     * Função para carregar as informações de uma planilha de acordo com a coluna selecionada
+    */
+    function carregarAbasDaPlanilha() {
+      if (spreadsheetId) {
+        // Chama a função para buscar e popular as abas para a planilha selecionada
+        google.script.run
+          .withSuccessHandler(popularAbas)
+          .withFailureHandler(mostrarErro)
+          .getNomesAbas(spreadsheetId);
+
+        // Opcional: Se você também quiser carregar os nomes das colunas da primeira aba da nova planilha
+        const abaSelect = document.getElementById('aba');
+        if (abaSelect && abaSelect.options.length > 0) {
+          carregarNomesColunas(abaSelect.options[0].value);
+        } else {
+          //Limpar o dropdown de colunas se não houver abas
+          const colunaSelect = document.getElementById('coluna');
+          colunaSelect.innerHTML = '<option value="">-- Selecione uma coluna --</option>';
+        }
+
+        // Atualiza o valor do input hidden ou variável global que armazena o ID da planilha atual
+        document.getElementById('spreadsheetId').value = spreadsheetId;
+      } else {
+        // Lógica para lidar com a situação em que nenhum ID de planilha está selecionado
+        const abaSelect = document.getElementById('aba');
+        abaSelect.innerHTML = '<option value="">-- Selecione uma aba --</option>';
+        const colunaSelect = document.getElementById('coluna');
+        colunaSelect.innerHTML = '<option value="">-- Selecione uma coluna --</option>';
+      }
+    }
+
+    /**
+     * Busca as ordens para mostrar no dropdown
+     */ 
+    function buscarColunaFrontend() {
+      //const spreadsheetId = document.getElementById('spreadsheetId').value;
+      const abaSelecionada = document.getElementById('aba').value;
+      const colunaBusca = "C";
+      const resultadoDiv = document.getElementById('resultado1');
+      const resultadoDiv2 = document.getElementById('resultado2');
+      const resultadoDiv3 = document.getElementById('resultado3');
+      //const turno = document.getElementById('turno').value;
+      resultadoDiv.innerHTML = 'Buscando lista de Contato...';
+      resultadoDiv2.style.display = 'none'; // Limpa o conteúdo anterior
+      resultadoDiv3.style.display = 'none'; // Limpa qualquer conteúdo anterior
+      google.script.run
+        .withSuccessHandler(exibirResultadosColuna)
+        .withFailureHandler(mostrarErro)
+        .buscarColuna(spreadsheetId, abaSelecionada, colunaBusca);
+    }
+
+    /**
+     * Exibe lista de Contato no dropdown
+    */
+    function exibirResultadosColuna(dadosColuna) {
+      const resultadoDrop = document.getElementById('dropdownPesquisa');
+      const resultadoDiv = document.getElementById('resultado1');
+      const resultadoDiv2 = document.getElementById('resultado2');
+      const resultadoDiv3 = document.getElementById('resultado2');
+      resultadoDiv.innerHTML = ''; // Limpa qualquer conteúdo anterior
+      resultadoDiv2.style.display = 'none'; // Limpa o conteúdo anterior
+      resultadoDiv3.style.display = 'none'; // Limpa qualquer conteúdo anterior
+      resultadoDrop.innerHTML = '';
+
+      if (dadosColuna && dadosColuna.length > 0) {
+        const selectElement = resultadoDrop;
+        selectElement.id = 'dropdownPesquisa'; // Dê um ID ao dropdown se precisar referenciá-lo depois
+        selectElement.innerHTML = '<option value="">-- Selecione um valor --</option>'; // Adiciona uma opção padrão
+
+        dadosColuna.forEach(dado => {
+          dado = String(dado).trim();
+          if(dado.toLowerCase() !== "cidades" && dado !== ""){
+            const optionElement = document.createElement('option');
+            optionElement.value = dado; // O valor que será enviado se selecionado
+            optionElement.textContent = dado; // O texto que o usuário verá
+            selectElement.appendChild(optionElement);
+          }else{
+            console.log(`Linha "${dado}" expurgada.`);
+          }
+        });
+
+        resultadoDiv.innerHTML = '<p>Pesquisa Concluida. <br>Pode Pesquisar a Unidade Desejada</p>';
+        // resultadoDiv2.innerHTML = '';
+        // resultadoDiv3.innerHTML = '';
+      } else {
+        resultadoDiv.innerHTML = '<p>Nenhum dado encontrado na coluna para exibir no dropdown.</p>';
+        // resultadoDiv2.innerHTML = '';
+        // resultadoDiv3.innerHTML = '';
+      }
+    }
+
+    /**
+     * Busca as informações na linha da TSS/Ordem selecionada
+     */
+    function buscarLinhaFrontend() {
+      //const spreadsheetId = document.getElementById('spreadsheetId').value;
+      const abaSelecionada = document.getElementById('aba').value;
+      const nomeCabecalhoColuna = "cidades";
+      const valorBusca = document.getElementById('dropdownPesquisa').value;
+      const valorParaDetectarCabecalho = "Cidades"; // Exemplo de valor esperado na linha de cabeçalho
+      if (valorBusca != null) {
+        const resultadoDiv = document.getElementById('resultado1');
+        const resultadoDiv2 = document.getElementById('resultado2');
+        const resultadoDiv3 = document.getElementById('resultado3');
+        resultadoDiv.innerHTML = 'Buscando Informações...';
+        resultadoDiv2.style.display = 'none'; // Limpa o conteúdo anterior
+        resultadoDiv3.style.display = 'none';
+        google.script.run
+          .withSuccessHandler(exibirResultadosLinha)
+          .withFailureHandler(mostrarErro)
+          .buscaDadosOtimizada(spreadsheetId, abaSelecionada, nomeCabecalhoColuna, valorBusca, valorParaDetectarCabecalho);
+      }
+    }
+
+    /**
+     * Exibe as informações na linha de Contato da Unidade selecionada
+     */
+    function exibirResultadosLinha(resultado) {
+      const resultadoDiv1 = document.getElementById('resultado1');
+      const resultadoDiv2 = document.getElementById('resultado2');
+      const resultadoDiv3 = document.getElementById('resultado3');
+      resultadoDiv1.innerHTML = ''; // Limpa o conteúdo anterior
+      resultadoDiv2.style.display = 'none'; // Limpa o conteúdo anterior
+      resultadoDiv3.style.display = 'none'; // Limpa o conteúdo anterior
+      const termoBuscaColuna = "coluna";
+      let verificador = '';
+      let tss = '';
+
+      const link = "Link";
+      if (resultado.tabela1 && resultado.tabela1.data && resultado.tabela1.data.length > 0) {
+        verificador = '';
+        resultadoDiv1.innerHTML = '<h3>Horário Comercial(08:00 - 17:30):</h3><ul>';
+        resultado.tabela1.data.forEach((dado, index) => {
+          let nomeColuna = resultado.tabela1.headers && resultado.tabela1.headers[index] ? resultado.tabela1.headers[index] : `Coluna ${String.fromCharCode(65 + index)}`;          
+          nomeColuna = String(nomeColuna).trim();
+          
+          // Verifica se o NOME DA COLUNA (nomeColuna) contém o termo de busca
+          if (!nomeColuna.toLowerCase().includes(termoBuscaColuna.toLowerCase()) && nomeColuna.toLowerCase() !== ""  && nomeColuna.toLowerCase() !== "cronograma geral") {
+            
+            // Salva o dado da coluna afastamento se houver
+            if (nomeColuna.toLowerCase().includes("afastamento") && !dado.toLowerCase().trim() == '') {
+              verificador = dado;
+              console.log("dado no verificador " + verificador);
+            }
+
+            // Verifica se o agente mencionado se encontra no site interno e linka a página do site interno
+            if (dado.toLowerCase() == "cios interno") {
+              resultadoDiv1.innerHTML += `<li><span>${nomeColuna}:</span> <a href=${link} target="_blank"><span class="linkcios"> ${dado} </span></a></li><br>`;
+            
+            // Verifica se tem afastamento e destaca qual agente está afastado
+            } else if (dado.toLowerCase().includes("agente") && nomeColuna.toLowerCase().includes("afastamento")) {
+              resultadoDiv1.innerHTML += `<li><span>${nomeColuna}:</span> <span class="aviso">${dado}</span></li><br>`;
+            
+            // Verifica se tem afastamentos e destaca o agente afastado
+            } else if (verificador == nomeColuna.toLowerCase()) {
+              resultadoDiv1.innerHTML += `<li class="aviso"><span class="aviso">${nomeColuna}:</span> ${dado}</li><br>`;
+            
+            // Printa normalmente
+            } else {
+              resultadoDiv1.innerHTML += `<li><span>${nomeColuna}:</span> ${dado}</li><br>`;
+            }
+          } else {
+            console.log(`Coluna "${nomeColuna}" expurgada.`);
+          }
+        });
+        resultadoDiv1.innerHTML += '</ul>';
+      } else {
+        resultadoDiv1.innerHTML = '<p>Nenhum resultado de linha encontrado.</p>';
+      }
+
+      if (resultado.tabela2 && resultado.tabela2.data && resultado.tabela2.data.length > 0) {
+        verificador = '';
+        resultadoDiv2.style.display = 'flex';
+        resultadoDiv2.innerHTML = '<h3>Horário Pós Comercial(17:30 - 08:00) <br> Finais de Semana/Feriado:</h3><ul>';
+        resultado.tabela2.data.forEach((dado, index) => {
+          let nomeColuna = resultado.tabela2.headers && resultado.tabela2.headers[index] ? resultado.tabela2.headers[index] : `Coluna ${String.fromCharCode(65 + index)}`;          
+          nomeColuna = String(nomeColuna).trim();
+          // Verifica se o NOME DA COLUNA (nomeColuna) contém o termo de busca
+          if (!nomeColuna.toLowerCase().includes(termoBuscaColuna.toLowerCase()) && nomeColuna.toLowerCase() !== ""  && nomeColuna.toLowerCase() !== "cronograma geral") {
+
+            // Salva o dado da coluna afastamento se houver
+            if (nomeColuna.toLowerCase().includes("afastamento") && !dado.toLowerCase().trim() == '') {
+              verificador = dado;
+              console.log("dado no verificador " + verificador);
+            }
+
+            // Verifica se o agente mencionado se encontra no site interno e linka a página do site interno
+            if (dado.toLowerCase() == "cios interno") {
+              resultadoDiv2.innerHTML += `<li><span>${nomeColuna}:</span> <a href=${link} target="_blank"><span class="linkcios"> ${dado} </span></a></li><br>`;
+
+            // Verifica se tem afastamento e destaca qual agente está afastado
+            } else if (dado.toLowerCase().includes("agente") && nomeColuna.toLowerCase().includes("afastamento")) {
+              resultadoDiv2.innerHTML += `<li><span>${nomeColuna}:</span> <span class="aviso">${dado}</span></li><br>`;
+
+            // Verifica se tem afastamentos e destaca o agente afastado
+            } else if (verificador == nomeColuna.toLowerCase()) {
+              resultadoDiv2.innerHTML += `<li class="aviso"><span class="aviso">${nomeColuna}:</span> ${dado}</li><br>`;
+
+            // Printa normalmente
+            } else {
+              resultadoDiv2.innerHTML += `<li><span>${nomeColuna}:</span> ${dado}</li><br>`;
+            }
+          } else {
+            console.log(`Coluna "${nomeColuna}" expurgada.`);
+          }
+        });
+        resultadoDiv2.innerHTML += '</ul>';
+      } else {
+        resultadoDiv2.style.display = 'none';
+      }
+
+      if (resultado.tabela3 && resultado.tabela3.data.sub_tab1 && resultado.tabela3.data.sub_tab1.length > 0) {
+        verificador = '';
+        resultadoDiv2.style.display = 'flex';
+        resultadoDiv2.innerHTML = '<h3>Pós Comercial(17:30 - 08:00) | Segunda - Quinta:</h3><ul>';
+        resultado.tabela3.data.sub_tab1.forEach((dado, index) => {
+          let nomeColuna = resultado.tabela3.headers && resultado.tabela3.headers[index] ? resultado.tabela3.headers[index] : `Coluna ${String.fromCharCode(65 + index)}`;          
+          nomeColuna = String(nomeColuna).trim();
+
+          // Verifica se o NOME DA COLUNA (nomeColuna) contém o termo de busca
+          if (!nomeColuna.toLowerCase().includes(termoBuscaColuna.toLowerCase()) && nomeColuna.toLowerCase() !== ""  && nomeColuna.toLowerCase() !== "cronograma geral") {
+            
+            // Salva o dado da coluna afastamento se houver
+            if (nomeColuna.toLowerCase().includes("afastamento") && !dado.toLowerCase().trim() == '') {
+              verificador = dado;
+              console.log("dado no verificador " + verificador);
+            }
+
+            // Verifica se o agente mencionado se encontra no site interno e linka a página do site interno
+            if (dado.toLowerCase() == "cios interno") {
+              resultadoDiv2.innerHTML += `<li><span>${nomeColuna}:</span> <a href=${link} target="_blank"><span class="linkcios"> ${dado} </span></a></li><br>`;
+            
+            // Verifica se tem afastamento e destaca qual agente está afastado
+            } else if (dado.toLowerCase().includes("agente") && nomeColuna.toLowerCase().includes("afastamento")) {
+              resultadoDiv2.innerHTML += `<li><span>${nomeColuna}:</span> <span class="aviso">${dado}</span></li><br>`;
+            
+            // Verifica se tem afastamentos e destaca o agente afastado
+            } else if (verificador == nomeColuna.toLowerCase()) {
+              resultadoDiv2.innerHTML += `<li class="aviso"><span class="aviso">${nomeColuna}:</span> ${dado}</li><br>`;
+            
+            // Printa normalmente
+            } else {
+              resultadoDiv2.innerHTML += `<li><span>${nomeColuna}:</span> ${dado}</li><br>`;
+            }
+          } else {
+            console.log(`Coluna "${nomeColuna}" expurgada.`);
+          }
+        });
+        resultadoDiv3.innerHTML += '</ul>';
+      } else {
+        resultadoDiv3.style.display = 'none';
+      }
+
+      if (resultado.tabela3 && resultado.tabela3.data.sub_tab2 && resultado.tabela3.data.sub_tab2.length > 0) {
+        verificador = '';
+        resultadoDiv3.style.display = 'flex';
+        resultadoDiv3.innerHTML = '<h3>Pós Comercial(17:30 - 08:00) | Sexta - Domingo:</h3><ul>';
+        resultado.tabela3.data.sub_tab2.forEach((dado, index) => {
+          let nomeColuna = resultado.tabela3.headers && resultado.tabela3.headers[index] ? resultado.tabela3.headers[index] : `Coluna ${String.fromCharCode(65 + index)}`;          
+          nomeColuna = String(nomeColuna).trim();
+          
+          // Verifica se o NOME DA COLUNA (nomeColuna) contém o termo de busca
+          if (!nomeColuna.toLowerCase().includes(termoBuscaColuna.toLowerCase()) && nomeColuna.toLowerCase() !== ""  && nomeColuna.toLowerCase() !== "cronograma geral") {
+            
+            // Salva o dado da coluna afastamento se houver
+            if (nomeColuna.toLowerCase().includes("afastamento") && !dado.toLowerCase().trim() == '') {
+              verificador = dado;
+              console.log("dado no verificador " + verificador);
+            }
+
+            // Verifica se o agente mencionado se encontra no site interno e linka a página do site interno
+            if (dado.toLowerCase() == "cios interno") {
+              resultadoDiv3.innerHTML += `<li><span>${nomeColuna}:</span> <a href=${link} target="_blank"><span class="linkcios"> ${dado} </span></a></li><br>`;
+            
+            // Verifica se tem afastamento e destaca qual agente está afastado
+            } else if (dado.toLowerCase().includes("agente") && nomeColuna.toLowerCase().includes("afastamento")) {
+              resultadoDiv3.innerHTML += `<li><span>${nomeColuna}:</span> <span class="aviso">${dado}</span></li><br>`;
+            
+            // Verifica se tem afastamentos e destaca o agente afastado
+            } else if (verificador == nomeColuna.toLowerCase()) {
+              resultadoDiv3.innerHTML += `<li class="aviso"><span class="aviso">${nomeColuna}:</span> ${dado}</li><br>`;
+            
+            // Printa normalmente
+            } else {
+              resultadoDiv3.innerHTML += `<li><span>${nomeColuna}:</span> ${dado}</li><br>`;
+            }
+          } else {
+            console.log(`Coluna "${nomeColuna}" expurgada.`);
+          }
+        });
+        resultadoDiv3.innerHTML += '</ul>';
+      } else {
+        resultadoDiv3.style.display = 'none';
+      }
+    }
+
+    /**
+     * Função para mostrar o Erro
+    */
+    function mostrarErro(erro) {
+      const resultadoDiv = document.getElementById('resultado');
+      resultadoDiv.innerHTML = `<p style="color: red;">Erro: ${erro}</p>`;
+      console.error(erro);
+    }
+  </script>
+</body>
+</html>
